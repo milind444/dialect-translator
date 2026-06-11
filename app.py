@@ -101,16 +101,6 @@ st.divider()
 # ─── Sidebar config ──────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown("### ⚙️ Configuration")
-
-    api_key = st.text_input(
-        "Groq API Key",
-        type="password",
-        value=os.getenv("GROQ_API_KEY", ""),
-        help="Free at console.groq.com → API Keys",
-    )
-    if api_key:
-        os.environ["GROQ_API_KEY"] = api_key
-
     st.divider()
 
     languages = get_available_languages()
