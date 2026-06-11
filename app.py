@@ -2,12 +2,7 @@ import os
 import streamlit as st
 
 
-# Load from Streamlit secrets if available (for cloud deployment)
-try:
-    if "GROQ_API_KEY" in st.secrets:
-        os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
-except Exception:
-    pass
+
 
 from translator import (
     full_translation_pipeline,
@@ -22,6 +17,14 @@ st.set_page_config(
     page_icon="🗣️",
     layout="wide",
 )
+
+
+# Load API key from Streamlit secrets (safe to call after set_page_config)
+try:
+    if "GROQ_API_KEY" in st.secrets:
+        os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
+except Exception:
+    pass
 
 # ─── Custom CSS ─────────────────────────────────────────────────────────────
 st.markdown(
@@ -101,6 +104,7 @@ st.divider()
 # ─── Sidebar config ──────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown("### ⚙️ Configuration")
+
     st.divider()
 
     languages = get_available_languages()
